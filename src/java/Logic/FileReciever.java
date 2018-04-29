@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -47,49 +50,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
 
-    System.out.println("Create file");
-    // Create path components to save the file
-    final String path = "/Users/andressaldana/Documents/Github/SecretFiles/files";
-    final Part filePart = request.getPart("file");
-    final String fileName = getFileName(filePart);
-
-    OutputStream out = null;
-    InputStream filecontent = null;
-    final PrintWriter writer = response.getWriter();
-
-    try {
-        out = new FileOutputStream(new File(path + File.separator
-                + fileName));
-        filecontent = filePart.getInputStream();
-        int read = 0;
-        final byte[] bytes = new byte[1024];
-
-        while ((read = filecontent.read(bytes)) != -1) {
-            out.write(bytes, 0, read);
-        }
-        writer.println("New file " + fileName + " created at " + path);
-        LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", 
-                new Object[]{fileName, path});
-    }
-    catch(FileNotFoundException fne) {
-        writer.println("You either did not specify a file to upload or are "
-                + "trying to upload a file to a protected or nonexistent "
-                + "location.");
-        writer.println("<br/> ERROR: " + fne.getMessage());
-        LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
-        new Object[]{fne.getMessage()});
-    }
-    finally {
-        if (out != null) {
-            out.close();
-        }
-        if (filecontent != null) {
-            filecontent.close();
-        }
-        if (writer != null) {
-            writer.close();
-        }
-    }
 }
 
 private String getFileName(final Part part) {
@@ -116,7 +76,8 @@ private String getFileName(final Part part) {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        System.out.println("metodo get disparado...");
+        processRequest(request, response);
     }
 
     /**
@@ -131,8 +92,61 @@ private String getFileName(final Part part) {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            System.out.println("Metodo post disparado, subiendo archivo...s");
-            processRequest(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+            System.out.println("POST request, uploading file...");
+            //processRequest(request, response);           
+
+            //Creating file
+            // Create path components to save the file
+            final String path = "/Users/andressaldana/Documents/Github/SecretFiles/files";
+            final Part filePart = request.getPart("file");
+            final String fileName = getFileName(filePart);
+
+            OutputStream out = null;
+            InputStream filecontent = null;
+            final PrintWriter writer = response.getWriter();
+
+            try {
+                out = new FileOutputStream(new File(path + File.separator
+                        + fileName));
+                filecontent = filePart.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                writer.println("New file " + fileName + " created at " + path);
+                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
+                
+                final String key = request.getParameter("key");
+                final String algorithm = request.getParameter("algorithm");
+                final String mode = request.getParameter("mode");
+                System.out.println("Algorithm: "+algorithm+", Mode: "+mode+", Key: "+key);
+                                
+                //redirects to index
+                //request.setAttribute("fileName",fileName);
+                //request.getRequestDispatcher("index.jsp").forward(request, response);               
+            }
+            catch(FileNotFoundException fne) {
+                writer.println("You either did not specify a file to upload or are "
+                        + "trying to upload a file to a protected or nonexistent "
+                        + "location.");
+                writer.println("<br/> ERROR: " + fne.getMessage());
+                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
+                new Object[]{fne.getMessage()});
+            }
+            finally {
+                if (out != null) {
+                    out.close();
+                }
+                if (filecontent != null) {
+                    filecontent.close();
+                }
+                if (writer != null) {
+                    writer.close();
+                }
+            }
             
     }
 
