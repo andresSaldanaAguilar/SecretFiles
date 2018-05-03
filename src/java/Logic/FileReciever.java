@@ -5,7 +5,7 @@
  */
 package Logic;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+//import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -54,7 +54,7 @@ throws ServletException, IOException {
 
 private String getFileName(final Part part) {
     final String partHeader = part.getHeader("content-disposition");
-    LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+    //LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
     for (String content : part.getHeader("content-disposition").split(";")) {
         if (content.trim().startsWith("filename")) {
             return content.substring(
@@ -117,7 +117,7 @@ private String getFileName(final Part part) {
                     out.write(bytes, 0, read);
                 }
                 writer.println("New file " + fileName + " created at " + path);
-                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
+                //LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
                 
                 final String key = request.getParameter("key");
                 final String algorithm = request.getParameter("algorithm");
@@ -133,8 +133,8 @@ private String getFileName(final Part part) {
                         + "trying to upload a file to a protected or nonexistent "
                         + "location.");
                 writer.println("<br/> ERROR: " + fne.getMessage());
-                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
-                new Object[]{fne.getMessage()});
+                //LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
+                //new Object[]{fne.getMessage()});
             }
             finally {
                 if (out != null) {
