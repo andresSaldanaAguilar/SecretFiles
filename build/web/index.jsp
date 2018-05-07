@@ -60,8 +60,15 @@
                                                 <!--filechooser-->
                                                 <div class="button-padding">
                                                 <div class="custom-file">   
-                                                    <input type="file"  required name="file" id="file" class="custom-file-input" onchange="setFilename()"/>
-                                                    <label class="custom-file-label" for="validatedCustomFile" id="fileInput">Choose file...</label>                                  
+                                                    <input type="file"  required name="musicfile" id="musicfile" class="custom-file-input" onchange="setFilename(this)"/>
+                                                    <label class="custom-file-label" for="validatedCustomFile" id="musicfileInput">Choose WAV file</label>                                  
+                                                </div>
+                                                </div>
+                                                <!--filechooser-->
+                                                <div class="button-padding">
+                                                <div class="custom-file">   
+                                                    <input type="file"  required name="file" id="file" class="custom-file-input" onchange="setFilename(this)"/>
+                                                    <label class="custom-file-label" for="validatedCustomFile" id="fileInput">Choose your file</label>                                  
                                                 </div>
                                                 </div>
                                                 <!--key-->

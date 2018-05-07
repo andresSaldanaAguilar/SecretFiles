@@ -96,17 +96,28 @@ private String getFileName(final Part part) {
             System.out.println("POST request, uploading file...");
             //processRequest(request, response);           
 
+            
+            //brings the rest of the data
+            final String key = request.getParameter("key");
+            final String algorithm = request.getParameter("algorithm");
+            final String mode = request.getParameter("mode");
+            System.out.println("Algorithm: "+algorithm+", Mode: "+mode+", Key: "+key);
+                
             //Creating file
             // Create path components to save the file
             final String path = "/Users/andressaldana/Documents/Github/SecretFiles/files";
             final Part filePart = request.getPart("file");
             final String fileName = getFileName(filePart);
 
+            final Part musicfilePart = request.getPart("musicfile");
+            final String musicfileName = getFileName(musicfilePart);            
+            
             OutputStream out = null;
             InputStream filecontent = null;
             final PrintWriter writer = response.getWriter();
 
             try {
+                
                 out = new FileOutputStream(new File(path + File.separator
                         + fileName));
                 filecontent = filePart.getInputStream();
@@ -119,10 +130,10 @@ private String getFileName(final Part part) {
                 writer.println("New file " + fileName + " created at " + path);
                 //LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
                 
-                final String key = request.getParameter("key");
-                final String algorithm = request.getParameter("algorithm");
-                final String mode = request.getParameter("mode");
-                System.out.println("Algorithm: "+algorithm+", Mode: "+mode+", Key: "+key);
+               
+                
+                
+                
                                 
                 //redirects to index
                 //request.setAttribute("fileName",fileName);

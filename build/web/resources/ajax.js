@@ -1,8 +1,11 @@
-$(document).ready(function() {
-        var arr;
+$(document).ready(function(){
         $('#updatefile').on('submit',function(e) {
             e.preventDefault();
             var formData = new FormData(document.getElementById("updatefile"));
+            //100 bytes for data file, 4 times the size of the file to cipher           
+            //var filesize = $("#file")[0].files[0].size;           
+            //var musicfilesize = $("#musicfile")[0].files[0].size;
+            //swal("Attetntion", "the file to cipher is bigger than you music file, we'll duplicate your file in order to make it out", "warning");
             $.ajax({   
                 url: "FileReciever",
                 type: "POST",              
@@ -19,6 +22,6 @@ $(document).ready(function() {
                     console.log(error);
                     console.log(estado);
                 }
-            });
+            });      
         });
 });

@@ -14,11 +14,16 @@ function setAction() {
 }
 
 //shoots the action
-function setFilename(){
-    var src = document.getElementById("file").value;
+function setFilename(e){
+    var src = e.value;
     var res = src.split("\\");
     var filename = res[res.length-1];
-    document.getElementById("fileInput").innerHTML = filename;
+    if(e.attributes["id"].value === "file"){
+        document.getElementById("fileInput").innerHTML = filename;
+    }
+    else{
+        document.getElementById("musicfileInput").innerHTML = filename;
+    }
 }
 
 //downloads the file
