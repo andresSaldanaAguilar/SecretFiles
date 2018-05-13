@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Logic;
+//import for encryption
+import Process.Process;
 
 //import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.File;
@@ -77,7 +79,7 @@ private String getFileName(final Part part) {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("metodo get disparado...");
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -101,7 +103,8 @@ private String getFileName(final Part part) {
             final String key = request.getParameter("key");
             final String algorithm = request.getParameter("algorithm");
             final String mode = request.getParameter("mode");
-            System.out.println("Algorithm: "+algorithm+", Mode: "+mode+", Key: "+key);
+            final String newFilename = request.getParameter("newFilename");
+            System.out.println("Algorithm: "+algorithm+", Mode: "+mode+", Key: "+key+", newFilename : "+newFilename);
                 
             //Creating file
             // Create path components to save the file
@@ -115,9 +118,8 @@ private String getFileName(final Part part) {
             OutputStream out = null, musicout = null;
             InputStream filecontent = null, musicfilecontent = null;
             final PrintWriter writer = response.getWriter();
-
-            try {
-                
+            
+            try {               
                 out = new FileOutputStream(new File(path + File.separator
                         + fileName));
                 filecontent = filePart.getInputStream();
@@ -127,8 +129,7 @@ private String getFileName(final Part part) {
                 while ((read = filecontent.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
                 }
-                writer.println("New file " + fileName + " created at " + path);
-
+                
                 //LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});                  
                 //redirects to index
                 //request.setAttribute("fileName",fileName);
@@ -149,9 +150,6 @@ private String getFileName(final Part part) {
                 if (filecontent != null) {
                     filecontent.close();
                 }
-                if (writer != null) {
-                    writer.close();
-                }
             }
             //writng secong archive, the musci file
             try {
@@ -165,8 +163,6 @@ private String getFileName(final Part part) {
                 while ((read = musicfilecontent.read(bytes)) != -1) {
                     musicout.write(bytes, 0, read);
                 }
-                writer.println("New file " + musicfileName + " created at " + path);
-
                 //LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});                  
                 //redirects to index
                 //request.setAttribute("fileName",fileName);
@@ -180,17 +176,24 @@ private String getFileName(final Part part) {
                 //LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", 
                 //new Object[]{fne.getMessage()});
             }
-            finally {
+            finally {              
                 if (musicout != null) {
                     musicout.close();
                 }
                 if (musicfilecontent != null) {
                     musicfilecontent.close();
-                }
-                if (writer != null) {
-                    writer.close();
-                }
+                }             
             }
+            //validacion de parte de amador
+            writer.println("true");
+            writer.close();
+            System.out.println("respondiendo...");
+            
+            Process p=new Process();
+            File fileWave  =new File("/Users/andressaldana/Documents/Github/SecretFiles/"+fileName);
+            File fileToHide=new File("/Users/andressaldana/Documents/Github/SecretFiles/"+musicfileName);
+            File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/+"+newFilename+".wav");
+            p.hide(fileWave, fileToHide, outputFile, algorithm, mode, key, newFilename);
     }
 
     /**

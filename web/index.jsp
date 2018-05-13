@@ -60,14 +60,14 @@
                                                 <!--filechooser-->
                                                 <div class="button-padding">
                                                 <div class="custom-file">   
-                                                    <input type="file"  required name="musicfile" id="musicfile" class="custom-file-input" onchange="setFilename(this)"/>
+                                                    <input type="file"  required name="musicfile" id="musicfile" class="custom-file-input" onchange="ValidateSingleInput(this);"/>
                                                     <label class="custom-file-label" for="validatedCustomFile" id="musicfileInput">Choose WAV file</label>                                  
                                                 </div>
                                                 </div>
                                                 <!--filechooser-->
                                                 <div class="button-padding">
                                                 <div class="custom-file">   
-                                                    <input type="file"  required name="file" id="file" class="custom-file-input" onchange="setFilename(this)"/>
+                                                    <input type="file"  required name="file" id="file" class="custom-file-input" onchange="setFilename(this);"/>
                                                     <label class="custom-file-label" for="validatedCustomFile" id="fileInput">Choose your file</label>                                  
                                                 </div>
                                                 </div>
@@ -95,8 +95,12 @@
                                                         <option>DECIPHER</option>
                                                     </select>
                                                 </div> 
+                                                <div class="btn-group btn-group-toggle col-lg-12 col-xl-12 col-sm-12 col-12">                                    
+                                                <!--new filename-->   
+                                                <input type="text" class=" btn form-control" placeholder="New Filename" name="newFilename" id="newFilename" required>                                                           
                                                 <!--submit button-->
-                                                <button type="submit" class="btn btn-success btn-block" name="upload" id="upload">Go!</button> 
+                                                <button type="submit" class="btn btn-success" name="upload" id="upload" onsubmit="validateKey()">Go!</button>                                                                                                                                   
+                                                </div>
                                         </form>  
                                     </div>    
                                     <!-- column 2 -->
@@ -113,6 +117,7 @@
                                             <div class="row justify-content-center button-padding">                                      
                                                 <button type="submit" class="btn btn-success col-lg-6 col-xl-6 col-sm-6 col-6" onclick="download()" disabled id="download" name="download"><i class="fas fa-download"></i> Download File</button>                                                                                       
                                             </div>
+
                                         </form>    
                                     </div>
                                 </div>                                                                

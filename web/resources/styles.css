@@ -52,6 +52,20 @@ i{
     background: primary;*/
 }
 
+#newFilename::placeholder {
+    color: rgb(42,125,246);
+    opacity: 1; /* Firefox */
+}
 
+#newFilename{
+    border-color: rgb(42,125,246);
+    color: rgb(42,125,246);
+}
+
+.no-rounded{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 5px;
+}
 
 
