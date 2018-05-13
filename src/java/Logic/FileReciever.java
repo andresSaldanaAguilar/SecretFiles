@@ -184,16 +184,17 @@ private String getFileName(final Part part) {
                     musicfilecontent.close();
                 }             
             }
+            System.out.println("Procesando archivo...");
+            Process p=new Process();
+            File fileWave  =new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+musicfileName);
+            File fileToHide=new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+fileName);
+            File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+newFilename+".wav");
+            p.hide(fileWave, fileToHide, outputFile, algorithm, mode, key, newFilename);
+
+            System.out.println("Archivo procesado, respondiendo...");
             //validacion de parte de amador
             writer.println("true");
             writer.close();
-            System.out.println("respondiendo...");
-            
-            Process p=new Process();
-            File fileWave  =new File("/Users/andressaldana/Documents/Github/SecretFiles/"+fileName);
-            File fileToHide=new File("/Users/andressaldana/Documents/Github/SecretFiles/"+musicfileName);
-            File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/+"+newFilename+".wav");
-            p.hide(fileWave, fileToHide, outputFile, algorithm, mode, key, newFilename);
     }
 
     /**
