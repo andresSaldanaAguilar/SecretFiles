@@ -16,14 +16,14 @@ public class Files {
     
        public byte[] getBytes(File file){
 		try{			
-                    FileInputStream fis=new FileInputStream(file);
-                    byte[] Bytes=new byte[(int) file.length()];
-                    fis.read(Bytes);
-                    fis.close();
-                    return Bytes;
+                        FileInputStream fis=new FileInputStream(file);
+			byte[] Bytes=new byte[(int) file.length()];
+			fis.read(Bytes);
+			fis.close();
+			return Bytes;
 		}
 		catch(Exception e){
-                    e.printStackTrace();
+			e.printStackTrace();
 		}
 		return null;
     }

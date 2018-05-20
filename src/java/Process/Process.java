@@ -22,7 +22,7 @@ public class Process {
     
     private Wav wav;
     private DES_AES cipher;
-    private File cFile, wFile;
+    private File cFile, wFile,ffile;
     private Files files;
     
     public Process(){
@@ -134,7 +134,7 @@ public class Process {
     
     public byte[] stringToBytes(String string){
         int ln=string.length();
-        char tam=43;
+        char tam=39;
         if(ln>tam){
             string=string.substring(ln-tam, ln);
         }
@@ -165,8 +165,12 @@ public class Process {
         for(i=i;i<20;i++){
             result[i]=md5[i-4];
         }
-        for(i=i;i<tam;i++){
-            result[i]=name[i-20];
+        result[20]=(byte)'d';
+        result[21]=(byte)'a';
+        result[22]=(byte)'t';
+        result[23]=(byte)'a';
+        for(i=24;i<tam;i++){
+            result[i]=name[i-24];
         }
         
        return cipher.encryptFoot(result, key, instance,mode);
@@ -340,8 +344,8 @@ public class Process {
     }
     private String getFileName(byte footBytes[]){
         String name="";
-        char i=20;
-        char c=(char)footBytes[20];
+        char i=24;
+        char c=(char)footBytes[24];
         while(c!='|' && i<63){
             name+=c;
             i++;
@@ -352,7 +356,7 @@ public class Process {
     
     private File uncover(File fileWave,long numSamples) throws FileNotFoundException, IOException{
         FileInputStream fis=new FileInputStream(fileWave);
-        File cFile=new File("daux"+System.currentTimeMillis());
+        cFile=new File("daux"+System.currentTimeMillis());
         FileOutputStream fos=new FileOutputStream(cFile);
         fis.skip(44);
         byte sample1[]=new byte[2];
@@ -410,32 +414,52 @@ public class Process {
     
     se podria modificar a que regrese un char y dependiendo el numero es lo que se le muestra al usauario
     */
+    
+    public boolean is_valid_foot(byte data[]){
+       // if((char)data[20]=='d' && (char)data[20]=='a' && (char)data[20]=='t' && (char)data[20]=='a')
+          if(data[20]=='d' && data[21]=='a' && data[22]=='t' && data[23]=='a'){
+            return true;
+          }
+        return false;
+    
+    }
+    
+    public void createFile(File file) throws IOException{
+        if (file.createNewFile())
+            System.out.println("El fichero se ha creado correctamente "+file.getName()+"\n");
+        else
+            System.out.println("No ha podido ser creado el fichero "+file.getName()+"\n");
+        
+    }
             
     public boolean uncover(File fileWave, String key, String instance, String mode) throws IOException {
         if (this.is_valid_wav(fileWave, true)) {
-                Wav wav = new Wav(fileWave);
+                wav = new Wav(fileWave);
                 byte footBytes[] = wav.getBytesFoot();
                 footBytes = cipher.decryptFoot(footBytes, key, instance, mode);
+                if(!is_valid_foot(footBytes)){
+                    this.userMessage2(false);
+                    return false;
+                }
                 long lna = getLnFoot(footBytes);
                 byte hashBytes[] = getHashBytes(footBytes);
                 String name = getFileName(footBytes);
-                File file= file = new File("daux" + System.currentTimeMillis());
-                File ffile = new File(name);
+                wFile = new File("daux" + System.currentTimeMillis());
+                ffile = new File(name);             
             try {
               long ln = sizeCryptedFile(instance, lna);
                 cFile = uncover(fileWave, ln);
-                
-                cipher.decryptFile(cFile, file, key, instance, mode);
-                plainFileFinal(file, ffile, lna);
+                cipher.decryptFile(cFile, wFile, key, instance, mode);
+                plainFileFinal(wFile, ffile, lna);
                 Hash hash = new Hash();
                 boolean complete = equalHash(hash.getHash(ffile, "MD5"), hashBytes);
                 if (complete) {
                     fileWave.delete();
                     cFile.delete();
-                    file.delete();
+                    wFile.delete();
                 } else {
                     cFile.delete();
-                    file.delete();
+                    wFile.delete();
                     ffile.delete();
                 }
                 this.userMessage2(complete);
@@ -443,10 +467,10 @@ public class Process {
             } catch (Exception e) {
                 this.userMessage2(false);
                  cFile.delete();
-                    file.delete();
+                    wFile.delete();
                     ffile.delete();
                 return false;
-            }
+           }
         } else {
             this.userMessage3();
             return false;

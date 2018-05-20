@@ -38,7 +38,7 @@
         <script src="resources/ajax.js" type="text/javascript"></script>
         
     </head>
-    <body>
+    <body onload="setAction()">
         <!-- Body -->
         <div class="container">
             <div class="card" id="main-card">               
@@ -90,17 +90,23 @@
                                                         <option>CFB</option>
                                                     </select>
                                                     <!-- Action -->
-                                                    <select class="form-control col col-lg-3 col-xl-3 button-padding btn-outline-primary" id="algorithmSel" onchange="setAction()">
+                                                    <select class="form-control col col-lg-3 col-xl-3 button-padding btn-outline-primary" name="algorithmSel" id="algorithmSel" onchange="setAction()">
                                                         <option>CIPHER</option>
                                                         <option>DECIPHER</option>
                                                     </select>
                                                 </div> 
-                                                <div class="btn-group btn-group-toggle col-lg-12 col-xl-12 col-sm-12 col-12">                                    
-                                                <!--new filename-->   
-                                                <input type="text" class=" btn form-control" placeholder="New Filename" name="newFilename" id="newFilename" required>                                                           
+                                                    <div class=" row form-group">
+                                                        <div class="col-lg-8 col-sm-8">
+                                                            <input type="text" class="form-control" placeholder="New Filename" name="newFilename" id="newFilename" required>         
+                                                        </div>
+                                                        <div class="col-lg-4 col-sm-4">
+                                                            <button type="submit" class="btn btn-success col-lg-4 col-xl-12" name="upload" id="upload" onsubmit="validateKey()" onclick="setnewFilename()">Go!</button> 
+                                                        </div>
+                                                    </div>
+                                                                                                  
                                                 <!--submit button-->
-                                                <button type="submit" class="btn btn-success" name="upload" id="upload" onsubmit="validateKey()">Go!</button>                                                                                                                                   
-                                                </div>
+                                                                                                                                                                                  
+                                                
                                         </form>  
                                     </div>    
                                     <!-- column 2 -->
@@ -109,15 +115,17 @@
                                             <i class="fas fa-cogs fa-10x" style="color:gray"></i>
                                         </div>
                                         <div class="row justify-content-center button-padding">
-                                            <i class="far fa-file fa-8x" style="margin-right: 5%;margin-top: 8.3%;"></i>
+                                            <i class="far fa-file fa-10x" style="margin-top: 9.2%;"></i>
                                         </div>
-                                        <h5><span class="badge badge-outline-primary col align-self-center"></span></h5>
+                                        <text class="row justify-content-center button-padding" id="newFile"></text>
                                         <form name="donwload" method="get" action="DownloadFileServlet">
-                                            <!--checks if there's some file to download-->
+                                            <!--hidden input, contains the filename-->
+                                            <input type="text" class=" btn form-control" placeholder="New Filename" name="new" id="new" required>
+                                            <!--hidden input, contains the option-->
+                                            <input type="text" class=" btn form-control" placeholder="New Filename" name="option" id="option" required>
                                             <div class="row justify-content-center button-padding">                                      
-                                                <button type="submit" class="btn btn-success col-lg-6 col-xl-6 col-sm-6 col-6" onclick="download()" disabled id="download" name="download"><i class="fas fa-download"></i> Download File</button>                                                                                       
+                                                <button type="submit" class="btn btn-success col-lg-6 col-xl-6 col-sm-6 col-6" disabled id="download" name="download"><i class="fas fa-download"></i> Download File</button>                                                                                       
                                             </div>
-
                                         </form>    
                                     </div>
                                 </div>                                                                

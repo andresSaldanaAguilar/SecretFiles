@@ -29,10 +29,19 @@ function setAction() {
     if(value === "DECIPHER"){
         document.getElementById("lockIcon1").classList.remove("fa-lock");
         document.getElementById("lockIcon1").classList.add("fa-lock-open");
+        document.getElementById("newFilename").required = false;
+        document.getElementById("newFilename").disabled = true;
+        document.getElementById("file").disabled = true;
+        document.getElementById("option").value = 1; 
     }
     else{
         document.getElementById("lockIcon1").classList.remove("fa-lock-open");
         document.getElementById("lockIcon1").classList.add("fa-lock");
+        document.getElementById("newFilename").disabled = false;
+        document.getElementById("newFilename").disabled = false;
+        document.getElementById("file").disabled = false;
+        document.getElementById("option").value = 2; 
+        
     } 
 }
 
@@ -54,11 +63,24 @@ function download(){
     swal("File downloaded", "You clicked the button!", "success");
 }
 
-function randomColor(element){
-	var str="#"+((1<<24)*Math.random()|0).toString(16);
-	element.style.color=""+str;
+function setnewFilename(){
+    
+    var src = document.getElementById("algorithmSel");
+    var value = src.options[src.selectedIndex].value;
+
+    if(value === "DECIPHER"){
+        var input = document.getElementById("musicfile").value;
+        var res = input.split("\\");
+        var filename = res[res.length-1];     
+        document.getElementById("newFile").innerHTML = filename;
+        document.getElementById("new").value = filename; 
+    }
+    else{
+        var input = document.getElementById("newFilename").value;
+        document.getElementById("newFile").innerHTML = input+".wav";
+        document.getElementById("new").value = input+".wav";
+    }
 }
-
-
+//
 
 

@@ -7,7 +7,6 @@ $(document).ready(function(){
             var key = document.getElementById("key").value;
             var isValidKey = false;
             if(algorithm === "DES"){
-                alert(key.length);
                 if(key.length === 8)
                     isValidKey = true;
             }
