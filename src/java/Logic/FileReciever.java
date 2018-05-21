@@ -205,18 +205,32 @@ private String getFileName(final Part part) {
                 String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
                 System.out.println("Encubriendo archivo: "+newFilename+extension);
                 System.out.println("filename: " +fileName + " newfilename: "+newFilename+" musicfileName "+musicfileName+" mode "+mode+" key "+key);
-                p.hide(fileWave, fileToHide, outputFile, algorithm, mode, key, newFilename+extension);                
+                if(p.hide(fileWave, fileToHide, outputFile, algorithm, mode, key, newFilename+extension)){
+                    writer.println("true");
+                    System.out.println("Archivo procesado, respondiendo!");
+                }
+                else{
+                    writer.println("false");
+                    System.out.println("Error en procesamiento de archivo");
+                }
             }
             else{
                 File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+musicfileName);
-                System.out.println("filename: "+fileName);
+                System.out.println("filename: "+musicfileName);
                 System.out.println("Descubriendo archivo...");
-                p.uncover(outputFile,key,algorithm,mode);
+                if(p.uncover(outputFile,key,algorithm,mode)){
+                    writer.println("true");
+                    System.out.println("Archivo procesado, respondiendo!");
+                }
+                else{
+                    writer.println("false");
+                    System.out.println("Error en procesamiento de archivo");
+                }              
             }
-            System.out.println("Archivo procesado, respondiendo!");
-            //validacion de parte de amador
-            writer.println("true");
+            
+        
             writer.close();
+            
         }
     /**
      * Returns a short description of the servlet.

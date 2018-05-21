@@ -36,7 +36,7 @@ $(document).ready(function(){
                             document.getElementById("download").disabled = false;
                             console.log("Ajax: data send successful");                        
                         }else{
-                            swal("Size problem", "Error!", "error");
+                            swal("An error has ocurred while processing the file", "-Check if your password is correct\n-Check if the algorithm or mode is the correct\n-The file is corrupted or not the correct", "error");
                         }
                     },            
                     error: function(jqXHR,estado,error){
@@ -45,6 +45,6 @@ $(document).ready(function(){
                     }
                 });
             }
-            else swal("Key size problem", "Key sizes are:\n AES: 16 characters\n DES: 8 characters", "error");
+            else swal("Key size problem", "Key sizes are:\nAES: 16 characters\nDES: 8 characters", "error");
         });
 });
