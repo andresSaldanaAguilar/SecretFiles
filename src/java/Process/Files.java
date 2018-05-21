@@ -51,6 +51,6 @@ public class Files {
     
 
     public long chartoLong(char chars[]){
-        return  0xffffffff &( (chars[0]&0xffffffff) |  ((chars[1] << 8)&0xffffffff)  |  ((chars[2] <<16)&0xffffffff)  |  ((chars[3] <<24&0xffffffff)) );
+        return  0xffffffff &( (chars[0]&0x000000ff) |  ((chars[1] &0x000000ff)<< 8)  |  ((chars[2] &0x000000ff)<<16)  |  ((chars[3]&0x000000ff) <<24) );
     }
 }
