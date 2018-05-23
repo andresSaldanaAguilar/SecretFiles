@@ -51,7 +51,15 @@ function setFilename(e){
     var res = src.split("\\");
     var filename = res[res.length-1];
     if(e.attributes["id"].value === "file"){
-        document.getElementById("fileInput").innerHTML = filename;
+        //validating filesize
+        var filesize = parseInt(document.getElementById("file").files[0].size, 10);         
+        if(filesize < 1*Math.pow(10,9)){
+            document.getElementById("fileInput").innerHTML = filename;
+        }
+        else{
+            swal("File size problem", "The file you entered is bigger than the limit (1GB)", "warning");
+            document.getElementById("file").value = "";
+        }
     }
     else{
         document.getElementById("musicfileInput").innerHTML = filename;
@@ -80,7 +88,9 @@ function setnewFilename(){
         document.getElementById("newFile").innerHTML = input+".wav";
         document.getElementById("new").value = input+".wav";
     }
+
 }
+
 //
 
 

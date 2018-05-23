@@ -95,18 +95,14 @@
                                                         <option>DECIPHER</option>
                                                     </select>
                                                 </div> 
-                                                    <div class=" row form-group">
-                                                        <div class="col-lg-8 col-sm-8">
-                                                            <input type="text" class="form-control" placeholder="New Filename" name="newFilename" id="newFilename" required>         
-                                                        </div>
-                                                        <div class="col-lg-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-success col-lg-4 col-xl-12" name="upload" id="upload" onsubmit="validateKey()" onclick="setnewFilename()">Go!</button> 
-                                                        </div>
+                                                <div class=" row form-group">
+                                                    <div class="col-lg-8 col-sm-8">
+                                                        <input type="text" class="form-control" placeholder="New Filename" name="newFilename" id="newFilename" required>         
                                                     </div>
-                                                                                                  
-                                                <!--submit button-->
-                                                                                                                                                                                  
-                                                
+                                                    <div class="col-lg-4 col-sm-4">
+                                                        <button type="submit" class="btn btn-success col-lg-4 col-xl-12" name="upload" id="upload" onsubmit="eraseFiles()" onclick="setnewFilename()">Go!</button> 
+                                                    </div>
+                                                </div>       
                                         </form>  
                                     </div>    
                                     <!-- column 2 -->
@@ -115,7 +111,7 @@
                                             <i class="fas fa-cogs fa-10x" style="color:gray"></i>
                                         </div>
                                         <div class="row justify-content-center button-padding">
-                                            <i class="far fa-file fa-10x" style="margin-top: 9.2%;"></i>
+                                            <i class="far fa-file fa-10x" style="margin-top: 5%;"></i>
                                         </div>
                                         <text class="row justify-content-center button-padding" id="newFile"></text>
                                         <form name="donwload" method="get" action="DownloadFileServlet">
@@ -135,6 +131,7 @@
                 </div>             
             </div>
         </div>
-    </div>
+        
 </body>
+<div class="modal"><!-- Place at bottom of page --></div>
 </html>
