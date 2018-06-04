@@ -96,8 +96,12 @@ private String getFileName(final Part part) {
         
             response.setContentType("text/html;charset=UTF-8");
             System.out.println("POST request, uploading file...");
-            //processRequest(request, response);           
-
+            
+                    //creates directory if not exists
+            File directory = new File( System.getProperty("user.dir")+"/files/");
+            if (! directory.exists()){
+                directory.mkdir();
+            }
             
             //brings the rest of the data
             final String key = request.getParameter("key");
@@ -112,7 +116,7 @@ private String getFileName(final Part part) {
             OutputStream out = null, musicout = null;
             InputStream filecontent = null, musicfilecontent = null;
             final PrintWriter writer = response.getWriter();
-            final String path = "/Users/andressaldana/Documents/Github/SecretFiles/files";
+            final String path = System.getProperty("user.dir")+"/files";
             String fileName = "";
             //Creating file
             // Create path components to save the file
@@ -193,15 +197,16 @@ private String getFileName(final Part part) {
             
             System.out.println("Procesando archivo...");
             Process p=new Process();
-            File fileWave  =new File("/Users/andressaldana/Documents/Github/SecretFiles/fileTests/"+musicfileName);
+            File fileWave  =new File(System.getProperty("user.dir")+"/files/"+musicfileName);
             File fileToHide = null;
             if(request.getPart("file") != null){
-                fileToHide=new File("/Users/andressaldana/Documents/Github/SecretFiles/fileTests/"+fileName);
+                fileToHide=new File(System.getProperty("user.dir")+"/files/"+fileName);
             }
             
             
-            if(selectedAlgorithm.equals("CIPHER")){  
-                File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+newFilename+".wav");
+            if(selectedAlgorithm.equals("ENCRYPT")){  
+                File outputFile=new File(System.getProperty("user.dir")+"/files/"+newFilename+".wav");
+                System.out.println("outputfile: "+System.getProperty("user.dir")+"/files/"+newFilename+".wav");
                 String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
                 System.out.println("Encubriendo archivo: "+newFilename+extension);
                 System.out.println("filename: " +fileName + " newfilename: "+newFilename+" musicfileName "+musicfileName+" mode "+mode+" key "+key);
@@ -215,7 +220,7 @@ private String getFileName(final Part part) {
                 }
             }
             else{
-                File outputFile=new File("/Users/andressaldana/Documents/Github/SecretFiles/files/"+musicfileName);
+                File outputFile=new File(System.getProperty("user.dir")+"/files/"+musicfileName);
                 System.out.println("filename: "+musicfileName);
                 System.out.println("Descubriendo archivo...");
                 if(p.uncover(outputFile,key,algorithm,mode)){
@@ -226,11 +231,8 @@ private String getFileName(final Part part) {
                     writer.println("false");
                     System.out.println("Error en procesamiento de archivo");
                 }              
-            }
-            
-        
+            }    
             writer.close();
-            
         }
     /**
      * Returns a short description of the servlet.

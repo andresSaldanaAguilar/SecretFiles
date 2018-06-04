@@ -28,7 +28,7 @@ $(document).ready(function(){
                         //getting rid of enter
                         message = message.replace(/[\r\n]/g,"");
                         if(message === "true"){
-                            swal("File upload", "Upload succesful!", "success");
+                            swal("Correct", "Action succesful!", "success");
                             document.getElementById("download").disabled = false;
                             console.log("Ajax: data send successful");
                             //clean fields
@@ -54,3 +54,6 @@ $(document).on({
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
 });
+
+
+

@@ -32,9 +32,9 @@ public class Finder {
 
     public static void main(String args[]) throws IOException{
 
-        String fileName = "ext.wav";
-        String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-        System.out.println(extension);
-        //listFilesForFolder(f,"ka.wav");
+        File directory = new File(System.getProperty("user.dir")+"/files/");
+        if (! directory.exists()){
+            directory.mkdir();
+        }
     }
 }

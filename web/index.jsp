@@ -91,8 +91,8 @@
                                                     </select>
                                                     <!-- Action -->
                                                     <select class="form-control col col-lg-3 col-xl-3 button-padding btn-outline-primary" name="algorithmSel" id="algorithmSel" onchange="setAction()">
-                                                        <option>CIPHER</option>
-                                                        <option>DECIPHER</option>
+                                                        <option>ENCRYPT</option>
+                                                        <option>DECRYPT</option>
                                                     </select>
                                                 </div> 
                                                 <div class=" row form-group">
@@ -113,7 +113,7 @@
                                         <div class="row justify-content-center button-padding">
                                             <i class="far fa-file fa-10x" style="margin-top: 5%;"></i>
                                         </div>
-                                        <text class="row justify-content-center button-padding" id="newFile"></text>
+                                        <!--<text class="row justify-content-center button-padding" id="newFile"></text>-->
                                         <form name="donwload" method="get" action="DownloadFileServlet">
                                             <!--hidden input, contains the filename-->
                                             <input type="text" class=" btn form-control" placeholder="New Filename" name="new" id="new" required>

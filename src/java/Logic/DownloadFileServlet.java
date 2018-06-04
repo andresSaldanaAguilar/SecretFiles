@@ -60,20 +60,19 @@ public class DownloadFileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                // reads input file from an absolute path
-                
+        
         final String filename = request.getParameter("new"); 
         final String option = request.getParameter("option"); 
         System.out.println("option "+option+"filename "+filename);
         String filePath = "";
         if(option.equals("2")){
-            filePath = "/Users/andressaldana/Documents/Github/SecretFiles/files/"+filename;
+            filePath = System.getProperty("user.dir")+"/files/"+filename;
         }
         else{
             Finder f = new Finder();
             // /Applications/NetBeans/glassfish-4.1.1/glassfish/domains/domain1/config/oi.txt
             // /Users/andressaldana/apache-tomcat-8.5.30/bin/
-            File folder = new File("/Applications/NetBeans/glassfish-4.1.1/glassfish/domains/domain1/config/");
+            File folder = new File(System.getProperty("user.dir"));
             filePath = f.listFilesForFolder(folder,filename);
             System.out.println(filePath);      
         }

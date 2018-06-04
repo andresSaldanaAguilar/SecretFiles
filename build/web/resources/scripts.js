@@ -26,7 +26,7 @@ function setAction() {
     var src = document.getElementById("algorithmSel");
     var value = src.options[src.selectedIndex].value;
 
-    if(value === "DECIPHER"){
+    if(value === "DECRYPT"){
         document.getElementById("lockIcon1").classList.remove("fa-lock");
         document.getElementById("lockIcon1").classList.add("fa-lock-open");
         document.getElementById("newFilename").required = false;
@@ -76,21 +76,19 @@ function setnewFilename(){
     var src = document.getElementById("algorithmSel");
     var value = src.options[src.selectedIndex].value;
 
-    if(value === "DECIPHER"){
+    if(value === "DECRYPT"){
         var input = document.getElementById("musicfile").value;
         var res = input.split("\\");
         var filename = res[res.length-1];     
-        document.getElementById("newFile").innerHTML = filename;
+        //document.getElementById("newFile").innerHTML = filename.split("\\.",1);
         document.getElementById("new").value = filename; 
     }
     else{
         var input = document.getElementById("newFilename").value;
-        document.getElementById("newFile").innerHTML = input+".wav";
+        //document.getElementById("newFile").innerHTML = input+".wav";
         document.getElementById("new").value = input+".wav";
     }
-
 }
-
 //
 
 
